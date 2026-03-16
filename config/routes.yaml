@@ -9,3 +9,18 @@
 
 controllers:
     resource: routing.controllers
+
+app_statistique_logement:
+   path: /statistique/logement
+   controller: App\Controller\StatistiqueController::logement
+   methods: [GET]
+
+app_statistique_departement:
+   path: /statistique/departement
+   controller: App\Controller\StatistiqueController::departement
+   methods: [GET]
+
+app_statistique_region:
+   path: /statistique/region
+   controller: App\Controller\StatistiqueController::region
+   methods: [GET]
