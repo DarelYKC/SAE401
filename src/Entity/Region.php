@@ -6,6 +6,8 @@ use App\Repository\RegionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
+
 
 #[ORM\Entity(repositoryClass: RegionRepository::class)]
 class Region
@@ -28,7 +30,7 @@ class Region
      * @var Collection<int, Departement>
      */
     #[ORM\OneToMany(targetEntity: Departement::class, mappedBy: 'codeRegion')]
-    #[Groups(['logement', 'departement', 'region'])]
+    #[Groups(['departement', 'region'])]
     private Collection $departements;
 
     public function __construct()

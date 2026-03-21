@@ -17,50 +17,68 @@ class StatistiqueLogement
     #[Groups(['logement', 'departement', 'region'])]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     #[Groups(['logement', 'departement', 'region'])]
-    private ?float $construction = null;
+    private ?int $annee_publication = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
+    #[Groups(['logement', 'departement', 'region'])]
+    private ?float $taux_de_chomage = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Groups(['logement', 'departement', 'region'])]
+    private ?float $taux_de_pauvrete = null;
+
+    #[ORM\Column(nullable: true)]
     #[Groups(['logement', 'departement', 'region'])]
     private ?int $nombreLogement = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Groups(['logement', 'departement', 'region'])]
+    private ?int $nombreHabitant = null;
 
     #[ORM\ManyToOne(inversedBy: 'statistiqueLogements')]
     #[ORM\JoinColumn(name: 'departement_code', referencedColumnName: 'code')]
     #[Groups(['logement'])]
     private ?Departement $departement = null;
 
-    #[ORM\Column]
-    private ?int $année_publication = null;
-
-    #[ORM\Column]
-    private ?int $Nombredhabitants = null;
-
-    #[ORM\Column]
-    private ?float $Densité_de_population_au_km² = null;
-
-    #[ORM\Column]
-    private ?float $Variation_de_la_population_sur_10_ans_en = null;
-
-    #[ORM\Column]
-    private ?float $Dont_contribution_du_solde_naturel = null;
-
-    #[ORM\Column]
-    private ?float $Dont_contribution_du_solde_migratoire = null;
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function getConstruction(): ?float
+    
+    public function getAnneePublication(): ?int
     {
-        return $this->construction;
+        return $this->annee_publication;
+    }
+    
+    public function setAnneePublication(int $annee_publication): static
+    {
+        $this->annee_publication = $annee_publication;
+
+        return $this;
     }
 
-    public function setConstruction(float $construction): static
+    public function getTauxDeChomage(): ?float
     {
-        $this->construction = $construction;
+        return $this->taux_de_chomage;
+    }
+
+    public function setTauxDeChomage(?float $taux_de_chomage): static
+    {
+        $this->taux_de_chomage = $taux_de_chomage;
+
+        return $this;
+    }
+
+    public function getTauxDePauvrete(): ?float
+    {
+        return $this->taux_de_pauvrete;
+    }
+
+    public function setTauxDePauvrete(?float $taux_de_pauvrete): static
+    {
+        $this->taux_de_pauvrete = $taux_de_pauvrete;
 
         return $this;
     }
@@ -70,14 +88,26 @@ class StatistiqueLogement
         return $this->nombreLogement;
     }
 
-    public function setNombreLogement(int $nombreLogement): static
+    public function setNombreLogement(?int $nombreLogement): static
     {
         $this->nombreLogement = $nombreLogement;
 
         return $this;
     }
 
-    public function getDepartement(): ?Departement
+    public function getNombreHabitant(): ?int
+    {
+        return $this->nombreHabitant;
+    }
+
+    public function setNombreHabitant(?int $nombreHabitant): static
+    {
+        $this->nombreHabitant = $nombreHabitant;
+
+        return $this;
+    }
+
+        public function getDepartement(): ?Departement
     {
         return $this->departement;
     }
@@ -85,78 +115,6 @@ class StatistiqueLogement
     public function setDepartement(?Departement $departement): static
     {
         $this->departement = $departement;
-
-        return $this;
-    }
-
-    public function getAnnéePublication(): ?int
-    {
-        return $this->année_publication;
-    }
-
-    public function setAnnéePublication(int $année_publication): static
-    {
-        $this->année_publication = $année_publication;
-
-        return $this;
-    }
-
-    public function getNombredhabitants(): ?int
-    {
-        return $this->Nombredhabitants;
-    }
-
-    public function setNombredhabitants(int $Nombredhabitants): static
-    {
-        $this->Nombredhabitants = $Nombredhabitants;
-
-        return $this;
-    }
-
-    public function getDensitéDePopulationAuKm²(): ?float
-    {
-        return $this->Densité_de_population_au_km²;
-    }
-
-    public function setDensitéDePopulationAuKm²(float $Densité_de_population_au_km²): static
-    {
-        $this->Densité_de_population_au_km² = $Densité_de_population_au_km²;
-
-        return $this;
-    }
-
-    public function getVariationDeLaPopulationSur10AnsEn(): ?float
-    {
-        return $this->Variation_de_la_population_sur_10_ans_en;
-    }
-
-    public function setVariationDeLaPopulationSur10AnsEn(float $Variation_de_la_population_sur_10_ans_en): static
-    {
-        $this->Variation_de_la_population_sur_10_ans_en = $Variation_de_la_population_sur_10_ans_en;
-
-        return $this;
-    }
-
-    public function getDontContributionDuSoldeNaturel(): ?float
-    {
-        return $this->Dont_contribution_du_solde_naturel;
-    }
-
-    public function setDontContributionDuSoldeNaturel(float $Dont_contribution_du_solde_naturel): static
-    {
-        $this->Dont_contribution_du_solde_naturel = $Dont_contribution_du_solde_naturel;
-
-        return $this;
-    }
-
-    public function getDontContributionDuSoldeMigratoire(): ?float
-    {
-        return $this->Dont_contribution_du_solde_migratoire;
-    }
-
-    public function setDontContributionDuSoldeMigratoire(float $Dont_contribution_du_solde_migratoire): static
-    {
-        $this->Dont_contribution_du_solde_migratoire = $Dont_contribution_du_solde_migratoire;
 
         return $this;
     }

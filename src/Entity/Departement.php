@@ -33,7 +33,7 @@ class Departement
         referencedColumnName: "code",
         nullable: false
     )]
-    #[Groups(['departement'])]
+    #[Groups(['departement', 'logement'])]
     private ?Region $codeRegion = null;
 
     /**
