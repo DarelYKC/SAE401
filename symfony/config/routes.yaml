@@ -24,3 +24,8 @@ app_statistique_region:
    path: /statistique/region
    controller: App\Controller\StatistiqueController::region
    methods: [GET]
+
+api_statistiques:
+   path: /api/statistiques
+   controller: App\Controller\StatistiqueController::statistiques
+   methods: [GET]
