@@ -43,7 +43,15 @@ function Dashboard() {
     povertyByDistrict: [],
     housingDistribution: [],
   };
-
+  
+  const sommeHab = apiStats.reduce((acc, item) => {
+    return acc + (item.nombreHabitant || 0);
+  }, 0);
+  const sommeLog = apiStats.reduce((acc, item) => {
+    return acc + (item.nombreLogement || 0);
+  }, 0);
+  const moyenneChomage = (apiStats.reduce((acc, item) => acc + (item.taux_de_chomage || 0), 0) / apiStats.length).toFixed(2);
+  const moyennePauvrete = (apiStats.reduce((acc, item) => acc + (item.taux_de_pauvrete || 0), 0) / apiStats.length).toFixed(2);
 
   return (
     <div className="dashboard-layout">
@@ -53,27 +61,27 @@ function Dashboard() {
         <Header />
 
         <section className="cards-grid">
-          <Statcard title="Nombre d’habitants" value={dashboardData.summary.population} />
-          <Statcard title="Taux de chômage" value={dashboardData.summary.unemployment} suffix="%" />
-          <Statcard title="Taux de pauvreté" value={dashboardData.summary.poverty} suffix="%" />
-          <Statcard title="Nombre de logements" value={dashboardData.summary.housing} />
+          <Statcard title="Nombre d’habitants" value={sommeHab} />
+          <Statcard title="Taux de chômage" value={moyenneChomage} suffix="%" />
+          <Statcard title="Taux de pauvreté" value={moyennePauvrete} suffix="%" />
+          <Statcard title="Nombre de logements" value={sommeLog} />
         </section>
 
         <section className="main-chart-card">
-          <Mainchart data={dashboardData.unemploymentTrend} />
+          <Mainchart />
         </section>
 
         <section className="bottom-charts">
           <div className="bottom-card">
-            <Pauvre data={dashboardData.povertyByDistrict} />
+            <Pauvre />
           </div>
 
           <div className="bottom-card">
-            <House data={dashboardData.housingDistribution} />
+            <House />
           </div>
         </section>
 
-        <section className="api-stats-list">
+        {/* <section className="api-stats-list">
           <h2>Statistiques de l'API</h2>
           {isLoading && <p>Chargement des statistiques...</p>}
           {error && <p className="error">Erreur : {error}</p>}
@@ -87,6 +95,7 @@ function Dashboard() {
                     <th>ID</th>
                     <th>Année</th>
                     <th>Département</th>
+                    <th>Région</th>
                     <th>Habitants</th>
                     <th>Logements</th>
                     <th>Chômage (%)</th>
@@ -99,6 +108,7 @@ function Dashboard() {
                       <td>{item.id ?? "-"}</td>
                       <td>{item.annee_publication ?? "-"}</td>
                       <td>{item.departement?.nom ?? item.departement?.code ?? "-"}</td>
+                      <td>{item.departement?.codeRegion?.nom ?? item.departement?.codeRegion?.code ?? "-"}</td>
                       <td>{item.nombreHabitant ?? "-"}</td>
                       <td>{item.nombreLogement ?? "-"}</td>
                       <td>{item.taux_de_chomage ?? "-"}</td>
@@ -110,6 +120,7 @@ function Dashboard() {
             </div>
           )}
         </section>
+         */}
       </div>
     </div>
   );

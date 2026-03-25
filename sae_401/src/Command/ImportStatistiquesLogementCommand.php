@@ -54,6 +54,7 @@ class ImportStatistiquesLogementCommand extends Command
            return Command::FAILURE;
        }
 
+    //    stream_filter_append($handle, 'convert.iconv.ISO-8859-1/UTF-8');
 
        $separator = ';';
        $batchSize = 50;
@@ -122,14 +123,21 @@ class ImportStatistiquesLogementCommand extends Command
            }
 
 
+//  var_dump($data);exit;
 
 
-           $stat = new StatistiqueLogement();
-           $stat->setDepartement($departement);
-           $stat->setConstruction($this->decimal($data['construction']));
-           $stat->setNombreLogement($this->int($data['parc_social_nombre_de_logements']));
+        // Version modifier pour SAE
+            $stat = new StatistiqueLogement();
+            $stat->setDepartement($departement);
+            $stat->setAnneePublication($this->int($data['ann_ee_publication']));
+        
+            $stat->setTauxDeChomage($this->decimal($data['taux_de_ch^omage_au_t4_en']));
+            
+            $stat->setTauxDePauvrete($this->decimal($data['taux_de_pauvret_e_en']));
 
-
+            $stat->setNombreLogement($this->int($data['nombre_de_logements']));
+            $stat->setNombreHabitant($this->int($data['nombre_d_habitants']));
+           
            $this->em->persist($stat);
 
 
